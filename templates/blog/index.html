@@ -1,0 +1,66 @@
+{%extends 'blog/base.html'%}
+{%load static%}
+
+        {% block content %}
+        <!-- Blog Entries Column -->
+        <div class="col-md-8">
+
+            <h1 class="page-header">
+                Page Heading
+                <small>Secondary Text</small>
+            </h1>
+
+            <!-- First Blog Post -->
+            {% for post in posts%}
+            <h2>
+                <a href="{% url 'post' id=post.pk %}">{{post.title}}</a>
+            </h2>
+            <p class="lead">
+                Category: <a href="/{{post.category}}">{{post.category}}</a>
+            </p>
+            <p><span class="glyphicon glyphicon-time"></span> {{post.published_date}}</p>
+            <hr>
+            <img class="img-responsive" src="{{post.image}}" alt="">
+            <hr>
+            <p>{{post.content|truncatewords:20}}</p>
+            <a class="btn btn-primary" href="{% url 'post' id=post.pk %}">Read More <span class="glyphicon glyphicon-chevron-right"></span></a>
+            {% endfor%}
+
+            <hr>
+            <div class="pagination">
+    <span class="step-links">
+        {% if posts.has_previous %}
+            <a href="?page=1">&laquo; first</a>
+            <a href="?page={{ posts.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ posts.number }} of {{ posts.paginator.num_pages }}.
+        </span>
+
+        {% if posts.has_next %}
+            <a href="?page={{ posts.next_page_number }}">next</a>
+            <a href="?page={{ posts.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+    </span>
+</div>
+            <!-- Pager -->
+            <ul class="pager">
+                <li class="previous">
+                    {% if posts.has_previous %}
+            <a href="?page=1">&laquo; first</a>
+            <a href="?page={{ posts.previous_page_number }}">older</a>
+        {% endif %}
+                </li>
+                <li class="next">
+                   {% if posts.has_next %}
+            <a href="?page={{ posts.next_page_number }}">next</a>
+            <a href="?page={{ posts.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+                </li>
+            </ul>
+
+        </div>
+        {% endblock %}
+
+

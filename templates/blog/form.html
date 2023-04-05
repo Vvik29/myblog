@@ -1,0 +1,18 @@
+{%extends 'blog/base.html'%}
+{%load static%}
+
+{%block content%}
+<h2>Sign for a blog</h2>
+<p><form action="show", method="post">
+    {% csrf_token %}
+    <p> Enter name    <input type="text", name="name"></p>
+    <p> Enter surname <input type="text", name="surname"></p>
+    <p> Enter age     <input type="text", name="age"></p>
+    <p> Enter gender  <input type="text", name="gender"></p>
+    <p> Enter email   <input type="text", name="email">
+
+    <button type="submit">Show</button>
+
+</form></p>
+{%endblock%}
+
